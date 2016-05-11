@@ -14,7 +14,6 @@ class Project2 {
     System.out.println(Arrays.toString(test.heap));
     test.heapify();
     System.out.println(Arrays.toString(test.heap));
-    /*
     Heap empty = new Heap();
     empty.insert(1);
     System.out.println(empty.hasParent(1));
@@ -23,6 +22,5 @@ class Project2 {
     empty.insert(4);
     empty.insert(5);
     System.out.println(Arrays.toString(empty.heap));
-    */
   }
 }

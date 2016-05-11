@@ -22,7 +22,7 @@ class Heap {
   }
 
   public Integer[] resize() {
-    return Arrays.copyOf(heap, heap.length * 2);
+    return Arrays.copyOf(heap, heap.length + 1);
   }
 
   public boolean hasParent(Integer i) {
@@ -38,20 +38,22 @@ class Heap {
   }
 
   public boolean hasLeftChild(Integer i) {
-    return leftIndex(i) <= size && leftIndex(i) != null;
+    return leftIndex(i) <= size;
   }
 
   public boolean hasRightChild(Integer i) {
-    return rightIndex(i) <= size && rightIndex(i) != null;
+    return rightIndex(i) <= size;
+  }
+
+  public Integer parentIndex(Integer i) {
+    return i / 2;
   }
 
   public Integer parent(Integer i) {
     return heap[parentIndex(i)];
   }
 
-  public Integer parentIndex(Integer i) {
-    return i / 2;
-  }
+
 
   public int swap(Integer index1, Integer index2) {
     Integer temp = heap[index1];
