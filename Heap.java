@@ -62,47 +62,57 @@ class Heap {
     return 1;
   }
 
-  public void insert(Integer data) {
-    if (size >= heap.length - 1) {
-      heap = this.resize();
+  public int insert(Integer[] data) {
+    int count = 0;
+    for(int i = 0; i < data.length; i++) {
+      if (size >= heap.length - 1) {
+        heap = this.resize();
+      }
+
+      size++;
+      heap[size] = data[i];
+      count += percolateUp(size);
     }
 
-    size++;
-    heap[size] = data;
-    percolateUp(size);
+    return count;
   }
 
-  public void percolateUp(int index) {
+  public int percolateUp(int index) {
     int compare = index;
+    int swapCount = 0;
 
     while (hasParent(compare) && parent(compare) < heap[compare]) {
-      System.out.println("perc");
-      swap(compare, parentIndex(compare));
+      //System.out.println("perc");
+      swapCount += swap(compare, parentIndex(compare));
       compare = parentIndex(compare);
     }
+    return swapCount;
   }
 
-  public void heapify() {
+  public int heapify() {
+    int count = 0;
     for (int i = size() / 2; i >= 1; i--) {
-      percolateDown(i);
+      count += percolateDown(i);
     }
+
+    return count;
   }
 
-  public void percolateDown(int index) {
+  public int percolateDown(int index) {
     int compare = index;
-
+    int swapCount = 0;
     while (compare < size) {
       if (hasRightChild(compare)) {
         if (heap[leftIndex(compare)] > heap[rightIndex(compare)]) {
           if (heap[compare] < heap[leftIndex(compare)]) {
-            swap(compare, leftIndex(compare));
+            swapCount += swap(compare, leftIndex(compare));
             compare = leftIndex(compare);
           } else {
             break;
           }
         } else {
           if (heap[compare] < heap[rightIndex(compare)]) {
-            swap(compare, rightIndex(compare));
+            swapCount += swap(compare, rightIndex(compare));
             compare = rightIndex(compare);
           } else {
             break;
@@ -110,7 +120,7 @@ class Heap {
         }
       } else if (hasLeftChild(compare)) {
         if (heap[compare] < heap[leftIndex(compare)]) {
-          swap(compare, leftIndex(compare));
+          swapCount += swap(compare, leftIndex(compare));
           compare = leftIndex(compare);
         } else {
           break;
@@ -120,15 +130,22 @@ class Heap {
       }
     }
 
+    return swapCount;
+  }
+  
+  public void removal() {
+    if (size == 0) return;
+    if (heap[1] != null) {
+      int pointer = heap.length - 1;
+      heap[1] = heap[pointer];
+      Integer[] newHeap = new Integer[heap.length - 1];
+      System.arraycopy(heap, 1, newHeap, 1, newHeap.length - 1);
+      heap = newHeap;
+      size--;
+      heapify();
+    } else if (size == 1) {
+      heap[1] = null;
+    }
   }
 
-  /*
-
-  need to count # of swaps
-
-  public boolean removal() {
-
-  }
-
-  */
 }
