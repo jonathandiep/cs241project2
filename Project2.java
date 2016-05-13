@@ -1,11 +1,21 @@
 import java.util.Arrays;
 import java.util.Random;
+import java.util.Scanner;
 
 class Project2 {
   public static void main(String args[]) {
-    fixedInts();
-    //randomInts();
-
+    System.out.println("Please select how to test the program:");
+    System.out.println("(1) 20 sets of 100 randomly generated integers");
+    System.out.println("(2) Fixed integer values 1-100");
+    System.out.print("Enter choice: ");
+    Scanner sc = new Scanner(System.in);
+    int input = sc.nextInt();
+    System.out.println();
+    if (input == 1) {
+      randomInts();
+    } else if (input == 2) {
+      fixedInts();
+    }
   }
 
   static void randomInts() {
@@ -44,21 +54,45 @@ class Project2 {
     Heap insert = new Heap();
     System.out.println("Series of Insertions");
     System.out.println("Number of Swaps: " + insert.insert(inc));
-    System.out.println("Heap result: " + Arrays.toString(insert.heap));
+    StringBuilder insertDisplay = new StringBuilder();
+    for (int i = 1; i < insert.heap.length; i++) {
+      insertDisplay.append(insert.heap[i]);
+      if (i + 1 != insert.heap.length) insertDisplay.append(", ");
+    }
+    System.out.println("Heap result: " + insertDisplay.toString());
+    System.out.println();
     for (int i = 0; i < 10; i++) {
       insert.removal();
     }
-    System.out.println("Heap after 10 removals: " + Arrays.toString(insert.heap));
+    StringBuilder insertRemoval = new StringBuilder();
+    for (int i = 1; i < insert.heap.length; i++) {
+      insertRemoval.append(insert.heap[i]);
+      if (i + 1 != insert.heap.length) insertRemoval.append(", ");
+    }
+    System.out.println("Heap after 10 removals: " + insertRemoval.toString());
     System.out.println();
+    System.out.println();
+
 
     Heap optimal = new Heap(inc);
     System.out.println("Optimal Method");
     System.out.println("Number of Swaps: " + optimal.heapify());
-    System.out.println(Arrays.toString(optimal.heap));
+    StringBuilder optimalDisplay = new StringBuilder();
+    for (int i = 1; i < optimal.heap.length; i++) {
+      optimalDisplay.append(optimal.heap[i]);
+      if (i + 1 != optimal.heap.length) optimalDisplay.append(", ");
+    }
+    System.out.println("Heap result: " + optimalDisplay.toString());
+    System.out.println();
     for (int i = 0; i < 10; i++) {
       optimal.removal();
     }
-    System.out.println(Arrays.toString(optimal.heap));
+    StringBuilder optimalRemoval = new StringBuilder();
+    for (int i = 1; i < optimal.heap.length; i++) {
+      optimalRemoval.append(optimal.heap[i]);
+      if (i + 1 != optimal.heap.length) optimalRemoval.append(", ");
+    }
+    System.out.println("Heap after 10 removals: " + optimalRemoval.toString());
 
 
   }
@@ -69,10 +103,3 @@ class Project2 {
     return randNum;
   }
 }
-
-/*
-
-todo:
-- create cli
-
-*/
